@@ -1,0 +1,9 @@
+rootProject.name = "vertx-guice-root"
+include("vertx-guice")
+include("vertx-guice-examples")
+project(":vertx-guice").projectDir = file("./vertx-guice")
+project(":vertx-guice-examples").projectDir = file("./examples")
+
+file("./examples").eachDir {
+    include(it.name)
+}

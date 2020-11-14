@@ -11,25 +11,25 @@ import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.spi.logging.LogDelegate;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for {@link GuiceVerticleLoader}
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class GuiceVerticleLoaderTest {
 
     private JsonObject config = new JsonObject();
@@ -52,12 +52,12 @@ public class GuiceVerticleLoaderTest {
     @Captor
     private ArgumentCaptor<Class<Verticle>> classCaptor;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpOnce() {
         logger = MockLogDelegateFactory.getLogDelegate();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockLogDelegateFactory.reset();
         when(context.config()).thenReturn(config);

@@ -1,26 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright © 2016 Featx <open@featx.org>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the “Software”), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 package org.featx.vertx.guice;
 
 import com.google.inject.Guice;
@@ -42,7 +19,7 @@ import java.util.List;
  */
 public class GuiceVerticleLoader extends AbstractVerticle {
 
-    private Logger logger = LoggerFactory.getLogger(GuiceVerticleLoader.class);
+    private final Logger logger = LoggerFactory.getLogger(GuiceVerticleLoader.class);
 
     private final String verticleName;
     private final ClassLoader classLoader;
@@ -126,8 +103,7 @@ public class GuiceVerticleLoader extends AbstractVerticle {
         } else {
             clazz = classLoader.loadClass(className);
         }
-        Verticle verticle = createRealVerticle(clazz);
-        return verticle;
+        return createRealVerticle(clazz);
     }
 
     private Verticle createRealVerticle(Class<?> clazz) throws Exception {
@@ -146,7 +122,7 @@ public class GuiceVerticleLoader extends AbstractVerticle {
         for (int i = 0; i < bootstrapNames.size(); i++) {
             String bootstrapName = bootstrapNames.getString(i);
             try {
-                Class bootstrapClass = classLoader.loadClass(bootstrapName);
+                Class<?> bootstrapClass = classLoader.loadClass(bootstrapName);
                 Object obj = bootstrapClass.newInstance();
 
                 if (obj instanceof Module) {

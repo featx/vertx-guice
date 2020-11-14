@@ -50,16 +50,11 @@ public class GuiceVerticleFactory implements VerticleFactory {
     @Override
     public Verticle createVerticle(String verticleName, ClassLoader classLoader) throws Exception {
         verticleName = VerticleFactory.removePrefix(verticleName);
-
-        // Use the provided class loader to create an instance of GuiceVerticleLoader.  This is necessary when working with vert.x IsolatingClassLoader
+         // Use the provided class loader to create an instance of GuiceVerticleLoader.
+        // This is necessary when working with vert.x IsolatingClassLoader
         @SuppressWarnings("unchecked")
         Class<Verticle> loader = (Class<Verticle>) classLoader.loadClass(GuiceVerticleLoader.class.getName());
         Constructor<Verticle> ctor = loader.getConstructor(String.class, ClassLoader.class, Injector.class);
-
-        if (ctor == null) {
-            throw new IllegalStateException("Could not find GuiceVerticleLoader constructor");
-        }
-
         return ctor.newInstance(verticleName, classLoader, getInjector());
     }
 

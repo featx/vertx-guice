@@ -1,11 +1,12 @@
 package org.featx.vertx.guice.integration;
 
-import static org.junit.Assert.assertNotNull;
 import io.vertx.core.AbstractVerticle;
 
 import javax.inject.Inject;
 
 import org.featx.vertx.guice.MyDependency2;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Verticle with dependencies injected
