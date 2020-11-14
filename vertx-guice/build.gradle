@@ -8,7 +8,7 @@ dependencies {
     implementation("io.vertx:vertx-core:$vertxVersion")
 
     testImplementation("io.vertx:vertx-unit:$vertxVersion")
-    testImplementation("io.vertx:vertx-junit5:3.5.1")
+    testImplementation("io.vertx:vertx-junit5:$vertxVersion")
     testImplementation("org.mockito:mockito-core:$mockitoVersion")
     testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")

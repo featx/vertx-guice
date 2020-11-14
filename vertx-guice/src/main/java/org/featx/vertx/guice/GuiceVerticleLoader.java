@@ -68,7 +68,7 @@ public class GuiceVerticleLoader extends AbstractVerticle {
      * @throws Exception
      */
     @Override
-    public void start(Future<Void> startedResult) throws Exception {
+    public void start(Promise<Void> startedResult) throws Exception {
         // Start the real verticle
         realVerticle.start(startedResult);
     }
@@ -80,7 +80,7 @@ public class GuiceVerticleLoader extends AbstractVerticle {
      * @throws Exception
      */
     @Override
-    public void stop(Future<Void> stopFuture) throws Exception {
+    public void stop(Promise<Void> stopFuture) throws Exception {
         // Stop the real verticle
         if (realVerticle != null) {
             realVerticle.stop(stopFuture);

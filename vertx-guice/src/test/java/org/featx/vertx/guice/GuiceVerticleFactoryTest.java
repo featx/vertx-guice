@@ -1,11 +1,15 @@
 package org.featx.vertx.guice;
 
 import com.google.inject.Injector;
+import io.vertx.core.Promise;
 import io.vertx.core.Verticle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.concurrent.Callable;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -30,11 +34,18 @@ public class GuiceVerticleFactoryTest {
     @Test
     public void testCreateVerticle() throws Exception {
         String identifier = GuiceVerticleFactory.PREFIX + ":" + TestGuiceVerticle.class.getName();
-        Verticle verticle = factory.createVerticle(identifier, this.getClass().getClassLoader());
-        assertTrue(verticle instanceof GuiceVerticleLoader);
-
-        GuiceVerticleLoader loader = (GuiceVerticleLoader) verticle;
-        assertEquals(TestGuiceVerticle.class.getName(), loader.getVerticleName());
+        Promise<Callable<Verticle>> promise = Promise.promise();
+        factory.createVerticle(identifier, this.getClass().getClassLoader(), promise);
+        promise.future().onComplete(e -> {
+            try {
+                Verticle verticle = e.result().call();
+                assertTrue(verticle instanceof GuiceVerticleLoader);
+                GuiceVerticleLoader loader = (GuiceVerticleLoader) verticle;
+                assertEquals(TestGuiceVerticle.class.getName(), loader.getVerticleName());
+            } catch (Exception exception) {
+                fail(exception);
+            }
+        });
     }
 
     @Test

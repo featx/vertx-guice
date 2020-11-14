@@ -1,14 +1,11 @@
 package org.featx.vertx.guice;
 
+import io.vertx.core.*;
 import org.featx.vertx.guice.integration.CustomBinder;
 import org.featx.vertx.guice.integration.DependencyInjectionVerticle;
 import com.google.common.collect.Lists;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import io.vertx.core.Context;
-import io.vertx.core.Future;
-import io.vertx.core.Verticle;
-import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.spi.logging.LogDelegate;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +43,7 @@ public class GuiceVerticleLoaderTest {
     @Mock
     private Verticle verticle;
     @Mock
-    private Future<Void> future;
+    private Promise<Void> promise;
     @Captor
     private ArgumentCaptor<Iterable<Module>> modulesCaptor;
     @Captor
@@ -70,15 +67,15 @@ public class GuiceVerticleLoaderTest {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         GuiceVerticleLoader loader = new GuiceVerticleLoader(main, cl, parent);
         loader.init(vertx, context);
-        loader.start(future);
+        loader.start(promise);
 
         verify(verticle).init(eq(vertx), eq(context));
-        verify(verticle).start(future);
+        verify(verticle).start(promise);
         verify(parent).createChildInjector(modulesCaptor.capture());
         verify(child).getInstance(classCaptor.capture());
 
-        loader.stop(future);
-        verify(verticle).stop(eq(future));
+        loader.stop(promise);
+        verify(verticle).stop(eq(promise));
 
         return loader;
     }
