@@ -2,15 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.featx.vertx</groupId>
     <artifactId>vertx-guice-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.3.1</version>
-
-    <parent>
-        <groupId>com.englishtown.vertx</groupId>
-        <artifactId>oss-parent-vertx</artifactId>
-        <version>2.2.0</version>
-    </parent>
+    <version>3.3.0</version>
 
     <modules>
         <module>vertx-guice</module>
@@ -19,8 +14,8 @@
 
     <properties>
         <!--Dependency versions-->
-        <guice.version>4.1.0</guice.version>
         <vertx.version>3.3.0</vertx.version>
+        <guice.version>4.1.0</guice.version>
     </properties>
 
     <dependencies>
@@ -28,6 +23,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -44,19 +40,4 @@
 
     <description>Provides a VerticleFactory that uses Guice for dependency injection.</description>
     <inceptionYear>2013</inceptionYear>
-
-    <distributionManagement>
-        <site>
-            <id>sling.englishtown.com</id>
-            <url>dav:https://sling.englishtown.com/content/docs/${project.groupId}/${project.artifactId}/${project.version}</url>
-        </site>
-    </distributionManagement>
-
-    <scm>
-        <connection>scm:git:ssh://git@github.com/englishtown/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/englishtown/${project.artifactId}.git</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/englishtown/${project.artifactId}</url>
-    </scm>
-
 </project>
